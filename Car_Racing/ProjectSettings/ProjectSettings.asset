@@ -781,7 +781,14 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   webGLPowerPreference: 2
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    Android: BCG_RCC
+    PS4: BCG_RCC
+    Standalone: BCG_RCC
+    WebGL: BCG_RCC
+    XboxOne: BCG_RCC
+    iPhone: BCG_RCC
+    tvOS: BCG_RCC
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
@@ -882,7 +889,7 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  activeInputHandler: 0
+  activeInputHandler: 2
   windowsGamepadBackendHint: 0
   cloudProjectId: e26ca98c-2623-4bdd-bbbb-fd44bc20a40d
   framebufferDepthMemorylessMode: 0
