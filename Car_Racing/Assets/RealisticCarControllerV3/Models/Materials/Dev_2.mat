@@ -22,8 +22,6 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Dev_2
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -33,7 +31,6 @@ Material:
   stringTagMap:
     RenderType: Opaque
   disabledShaderPasses: []
-  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -62,8 +59,8 @@ Material:
         m_Scale: {x: 250, y: 250}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 19cadaeb20d68e84e8cb9656924f4df7, type: 3}
+        m_Scale: {x: 25, y: 100}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -130,7 +127,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0, g: 0.5552516, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0, g: 0.5552516, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0.21464849, b: 1, a: 1}
     - _SpecColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
   m_BuildTextureStacks: []
