@@ -711,7 +711,8 @@ public class RCC_CarControllerV3 : RCC_Core {
 		}
 
 	}
-		
+
+
 	/// <summary>
 	/// Kills or start engine.
 	/// </summary>
@@ -817,7 +818,12 @@ public class RCC_CarControllerV3 : RCC_Core {
 		}
 
 	}
-	
+
+	private void Start()
+	{
+		SaveScript.TopSpeed = maxspeed;
+	}
+
 	void Update (){
 
 		Inputs();
@@ -861,6 +867,8 @@ public class RCC_CarControllerV3 : RCC_Core {
 			driftAngle = rearSidewaysSlip * .75f;
 		else
 			driftAngle = 0f;
+		//
+		SaveScript.Speed = speed;
 
 	}
 
@@ -2099,6 +2107,8 @@ public class RCC_CarControllerV3 : RCC_Core {
 		DetachTrailer();
 
 	}
+
+	
 
 	private void RCC_InputManager_OnGearShiftDown() {
 
