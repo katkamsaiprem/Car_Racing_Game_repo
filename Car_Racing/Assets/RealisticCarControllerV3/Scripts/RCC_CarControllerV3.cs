@@ -869,6 +869,7 @@ public class RCC_CarControllerV3 : RCC_Core {
 			driftAngle = 0f;
 		//
 		SaveScript.Speed = speed;
+		SaveScript.Gear = currentGear;
 
 	}
 
