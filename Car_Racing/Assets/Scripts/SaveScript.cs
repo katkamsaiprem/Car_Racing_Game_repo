@@ -24,6 +24,7 @@ public class SaveScript : MonoBehaviour
     public static float ThisCheckPoint2;
     public static bool CheckPointPass1 = false;
     public static bool CheckPointPass2 = false;
+    public static bool NewRecord = false;
     
     
     // Start is called before the first frame update

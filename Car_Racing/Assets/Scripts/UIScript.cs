@@ -21,6 +21,7 @@ public class UIScript : MonoBehaviour
     public TextMeshProUGUI BestLapTimeMinutesText;
     public TextMeshProUGUI BestLapTimeSecondsText;
     public TextMeshProUGUI CheckPointTime;
+    public GameObject NewLapRecord;
     public GameObject CheckPointDisplay;//required to access gameobj to off or no
 
     public int TotalLaps = 3;
@@ -32,7 +33,9 @@ public class UIScript : MonoBehaviour
         GearText.text = "1";
         LapNumberText.text = "0";
         TotalLapsText.text ="/"+ TotalLaps.ToString();
-        CheckPointDisplay.SetActive(false);
+        NewLapRecord.SetActive(false);
+        CheckPointDisplay.SetActive(false); 
+        
     }
 
     // Update is called once per frame
@@ -85,19 +88,24 @@ public class UIScript : MonoBehaviour
 
         }
         //BestLapTime
-        if (SaveScript.LastLapM == SaveScript.BestLapTimeM)//if Minutes are same then only update seconds
+        if (SaveScript.LapChange == true)
         {
-            if (SaveScript.LastLapS < SaveScript.BestLapTimeS)
+            if (Mathf.Approximately(SaveScript.LastLapM, SaveScript.BestLapTimeM)) //if Minutes are same then only update seconds
             {
-                SaveScript.BestLapTimeS = SaveScript.LastLapS;
+                if (SaveScript.LastLapS < SaveScript.BestLapTimeS)
+                {
+                    SaveScript.BestLapTimeS = SaveScript.LastLapS;
+                    SaveScript.NewRecord = true;
+                }
             }
-            
+            if (SaveScript.LastLapM < SaveScript.BestLapTimeM)
+            {
+                SaveScript.BestLapTimeM = SaveScript.LastLapM;
+                SaveScript.BestLapTimeS = SaveScript.LastLapS;
+                SaveScript.NewRecord = true;
+            }
         }
-        if (SaveScript.LastLapM < SaveScript.BestLapTimeM)
-        {
-            SaveScript.BestLapTimeM = SaveScript.LastLapM;
-            SaveScript.BestLapTimeS = SaveScript.LastLapS;
-        }
+
         //Display BestLapTime
         if (SaveScript.BestLapTimeM <= 9)
         {
@@ -117,51 +125,79 @@ public class UIScript : MonoBehaviour
             BestLapTimeSecondsText.text = (Mathf.Round(SaveScript.BestLapTimeS).ToString());
 
         }
+
+        if (SaveScript.NewRecord == true)
+        {
+            NewLapRecord.SetActive(true);
+            StartCoroutine(LapRecordOff());
+        }
+        
         //CheckPoint1
         if (SaveScript.CheckPointPass1 == true)
         {
             SaveScript.CheckPointPass1 = false;
-            CheckPointDisplay.SetActive(true);
-            if (SaveScript.ThisCheckPoint1 > SaveScript.LastCheckPoint1)//so player is moving slow as compared to last
+            if (SaveScript.LapNumber > 1)
             {
-                CheckPointTime.color=Color.red;
-                CheckPointTime.text = "-" + (SaveScript.ThisCheckPoint1 - SaveScript.LastCheckPoint1).ToString();
-                StartCoroutine(CheckPointOff());//pause(yield) the script for certain amount of time before running other commandline
+                CheckPointDisplay.SetActive(true);
+                if (SaveScript.ThisCheckPoint1 >
+                    SaveScript.LastCheckPoint1) //so player is moving slow as compared to last
+                {
+                    CheckPointTime.color = Color.red;
+                    CheckPointTime.text = "-" + (SaveScript.ThisCheckPoint1 - SaveScript.LastCheckPoint1).ToString();
+                    StartCoroutine(
+                        CheckPointOff()); //pause(yield) the script for certain amount of time before running other commandline
+                }
+
+                if (SaveScript.ThisCheckPoint1 <
+                    SaveScript.LastCheckPoint1) //so player is moving slow as compared to last
+                {
+                    CheckPointTime.color = Color.green;
+                    CheckPointTime.text = "+" + (SaveScript.LastCheckPoint1 - SaveScript.ThisCheckPoint1).ToString();
+                    StartCoroutine(CheckPointOff());
+                }
             }
-            if (SaveScript.ThisCheckPoint1 < SaveScript.LastCheckPoint1)//so player is moving slow as compared to last
-            {
-                CheckPointTime.color=Color.green;
-                CheckPointTime.text = "+" + (SaveScript.LastCheckPoint1 - SaveScript.ThisCheckPoint1).ToString();
-                StartCoroutine(CheckPointOff());
-            }
-            
+
         }
         //CheckPoint2
         if (SaveScript.CheckPointPass2 == true)
         {
             SaveScript.CheckPointPass2 = false;
-            CheckPointDisplay.SetActive(true);
-            if (SaveScript.ThisCheckPoint2 > SaveScript.LastCheckPoint2)//so player is moving slow as compared to last
+            if (SaveScript.LapNumber > 1)
             {
-                CheckPointTime.color=Color.red;
-                CheckPointTime.text = "-" + (SaveScript.ThisCheckPoint2 - SaveScript.LastCheckPoint2).ToString();
-                StartCoroutine(CheckPointOff());//pause(yield) the script for certain amount of time before running other commandline
+                CheckPointDisplay.SetActive(true);
+                if (SaveScript.ThisCheckPoint2 >
+                    SaveScript.LastCheckPoint2) //so player is moving slow as compared to last
+                {
+                    CheckPointTime.color = Color.red;
+                    CheckPointTime.text = "-" + (SaveScript.ThisCheckPoint2 - SaveScript.LastCheckPoint2).ToString();
+                    StartCoroutine(
+                        CheckPointOff()); //pause(yield) the script for certain amount of time before running other commandline
+                }
+
+                if (SaveScript.ThisCheckPoint2 <
+                    SaveScript.LastCheckPoint2) //so player is moving slow as compared to last
+                {
+                    CheckPointTime.color = Color.green;
+                    CheckPointTime.text = "+" + (SaveScript.LastCheckPoint2 - SaveScript.ThisCheckPoint2).ToString();
+                    StartCoroutine(CheckPointOff());
+                }
             }
-            if (SaveScript.ThisCheckPoint2 < SaveScript.LastCheckPoint2)//so player is moving slow as compared to last
-            {
-                CheckPointTime.color=Color.green;
-                CheckPointTime.text = "+" + (SaveScript.LastCheckPoint2 - SaveScript.ThisCheckPoint2).ToString();
-                StartCoroutine(CheckPointOff());
-            }
-            
+
         }
-
-
+        
     }
 
     IEnumerator CheckPointOff()
     {
         yield return new WaitForSeconds(2);
         CheckPointDisplay.SetActive(false);
+    }
+
+    IEnumerator LapRecordOff()
+    {
+        yield return new WaitForSeconds(2);
+        SaveScript.NewRecord = false;
+        NewLapRecord.SetActive(false);
+
     }
 }
