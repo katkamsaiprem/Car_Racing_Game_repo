@@ -194,10 +194,9 @@ public class UIScript : MonoBehaviour
     }
 
     IEnumerator LapRecordOff()
-    {
-        yield return new WaitForSeconds(2);
-        SaveScript.NewRecord = false;
-        NewLapRecord.SetActive(false);
-
-    }
+{
+    yield return new WaitForSeconds(2); // Pause the execution of this coroutine for 2 seconds
+    SaveScript.NewRecord = false; // Reset the NewRecord flag in the SaveScript class
+    NewLapRecord.SetActive(false); // Deactivate the NewLapRecord GameObject in the scene
+}
 }
