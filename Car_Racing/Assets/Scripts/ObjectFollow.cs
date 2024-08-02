@@ -11,7 +11,7 @@ public class ObjectFollow : MonoBehaviour
     public float Speed;
     
 
-    // Update is called once per frame
+    
     void Update()
     {
         CarMarker.transform.position =

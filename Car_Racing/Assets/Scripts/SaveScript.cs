@@ -27,13 +27,7 @@ public class SaveScript : MonoBehaviour
     public static bool NewRecord = false;
     
     
-    // Start is called before the first frame update
-    void Start()
-    {
-      
-    }
-
-    // Update is called once per frame
+  
     void Update()
     {
         if (LapChange == true)
